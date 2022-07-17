@@ -16,7 +16,7 @@ interface NodeDependency {
   overwrite?: boolean;
 }
 
-const FILE = "./latest-version.ts";
+const FILE = "./src/latest-version.ts";
 
 let nodeDependencies: Partial<NodeDependency>[] = [];
 
@@ -37,4 +37,12 @@ let program = ts.createProgram([FILE], {});
 const sourceFile = program.getSourceFile(FILE);
 const rootNode = sourceFile?.getFirstToken();
 
+switch (rootNode?.kind) {
+  case ts.SyntaxKind.VariableDeclaration:
+    console.log("its a variable");
+    break;
+  default:
+    console.log("Not a variable");
+    break;
+}
 console.info("ok");
